@@ -174,7 +174,7 @@ function cdls {
     # -x is for columns
     # CLICOLOR_FORCE and COLUMNS is for ls
     DISPLAY_LINES=20
-    LSCMD="CLICOLOR_FORCE=1 COLUMNS=$(tput cols) ls -Gp -x "
+    LSCMD="CLICOLOR_FORCE=1 COLUMNS=$(tput cols) ls --color=always -Gp -x "
     DIR="$@"  
    
     if [[ "$@" == "" ]]
@@ -182,14 +182,14 @@ function cdls {
       DIR="$HOME"
     fi
 
-    GIT_CMD="git -c color.status=always status -bs 2>/dev/null"
-    SVN_CMD='[[ -d .svn ]] && (
-        svn info 2>/dev/null | grep "^URL:\|^Revision:" 2>/dev/null && 
-        svn status 2>/dev/null
-    )'
+#    GIT_CMD="git -c color.status=always status -bs 2>/dev/null"
+#    SVN_CMD='[[ -d .svn ]] && (
+#        svn info 2>/dev/null | grep "^URL:\|^Revision:" 2>/dev/null && 
+#        svn status 2>/dev/null
+#    )'
     
-    VERSION_STATUS_CMD="(($GIT_CMD) || ($SVN_CMD))"
-    
+#    VERSION_STATUS_CMD="(($GIT_CMD) || ($SVN_CMD))"
+     VERSION_STATUS_CMD=true
     
     command cd "$DIR" && ((eval $VERSION_STATUS_CMD && hr); eval $LSCMD | head -n $DISPLAY_LINES ) &&  
     if [[ $( eval $LSCMD | wc -l ) -gt $DISPLAY_LINES ]]; then
@@ -230,7 +230,14 @@ function alwaysontop_help {
     echo -e "    "
     echo -e "    alwaysontop indicator:  ${COLOR_BIPurple}↑↑${COLOR_off}"
     echo -e "    autoclear indicator:    ${COLOR_BIYellow}◎${COLOR_off}"
-
+    echo "-------------------------------------------------------------"
+    echo -e "${COLOR_BGreen}Add following lines to ~/.bashrc${COLOR_off}"
+    echo ""
+    echo 'if [ -f ~/git/alwaysontop/alwaysontop.sh ];then'
+    echo '	unset AUTOCLEAR'
+    echo '	unset ALWAYSONTOP'
+    echo '	. ~/git/alwaysontop/alwaysontop.sh'
+    echo 'fi'
 }
 
 
