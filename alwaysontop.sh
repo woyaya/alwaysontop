@@ -174,7 +174,7 @@ function cdls {
     # -x is for columns
     # CLICOLOR_FORCE and COLUMNS is for ls
     DISPLAY_LINES=20
-    LSCMD="CLICOLOR_FORCE=1 COLUMNS=$(tput cols) ls --color=always -Gp -x "
+    LSCMD="CLICOLOR_FORCE=1 COLUMNS=$(tput cols) ls --color=always -p -x "
     DIR="$@"  
    
     if [[ "$@" == "" ]]
@@ -253,7 +253,7 @@ COLOR_BRed='\033[1;31m'
 
 
 # setup the colors used here for the two shells we support
-if [[ "$SHELL" == *"bash" ]]
+if [[ "$SHELL" == *"bash"* ]]
 then
     PROMPT_COLOR_off='\[\033[0m\]' 
     PROMPT_COLOR_BIPurple='\[\033[1;95m\]' 
@@ -262,7 +262,7 @@ then
     PROMPT_COLOR_BGreen='\[\033[1;32m\]'
     PROMPT_COLOR_BRed='\[\033[1;31m\]'
     
-elif [[ "$SHELL" == *"zsh" ]]
+elif [[ "$SHELL" == *"zsh"* ]]
 then
     autoload -U colors && colors
     autoload -U add-zsh-hook
